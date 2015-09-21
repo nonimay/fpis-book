@@ -71,6 +71,46 @@ class MyModuleTest extends WordSpec with MustMatchers {
       }
     }
 
+    "isSorted" must {
+
+      "return true is list has only one element" in {
+        val array = Array(1)
+        val sorted = isSorted(array, (x: Int, y: Int) => x > y)
+        sorted must be(true)
+        val sorted2 = isSorted(array, (x: Int, y: Int) => x < y)
+        sorted2 must be(true)
+      }
+
+      "return true when sorted" in {
+        val array = Array(1, 2)
+        val sorted = isSorted(array, (x: Int, y: Int) => x > y)
+        sorted must be(true)
+        val array2 = Array(2, 1)
+        val sorted2 = isSorted(array2, (x: Int, y: Int) => x < y)
+        sorted2 must be(true)
+      }
+
+      "return false when not sorted" in {
+        val array = Array(1, 2)
+        val sorted = isSorted(array, (x: Int, y: Int) => x < y)
+        sorted must be(false)
+        val array2 = Array(2, 1)
+        val sorted2 = isSorted(array2, (x: Int, y: Int) => x > y)
+        sorted2 must be(false)
+      }
+
+      "return true when the elements are equal" in {
+        val array = Array(1, 1)
+        val sorted = isSorted(array, (x: Int, y: Int) => x > y)
+        sorted must be(true)
+      }
+
+      "works for other types" in {
+        val array = Array("abc", "abb", "aaa")
+        val sorted = isSorted(array, (x: String, y: String) => x < y)
+        sorted must be(true)
+      }
+    }
   }
 
 }
